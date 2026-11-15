@@ -4,7 +4,7 @@
   --ink: #e9ece8;
   --mute: #8b938e;
   --line: rgba(233, 236, 232, 0.14);
-  --accent: #ff6a2b;
+  --accent: #7aa2ff;
   --pad: clamp(16px, 2.2vw, 32px);
   --sans: "Inter Tight", "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
   --serif: "Instrument Serif", "Times New Roman", serif; /* used in italic for name-level moments */
@@ -185,6 +185,7 @@ body.panel-open #scene { filter: blur(6px) brightness(0.6); }
 .track-tick i { font-style: normal; }
 .track-tick em { font-style: normal; display: none; }
 .track-tick:hover em, .track-tick.active em { display: inline; }
+.track:hover .track-tick.active:not(:hover) em { display: none; } /* hovering another tick hides the active label */
 .track-tick:last-child span { transform: translateX(-30%); }
 .track-tick::after { content: ""; width: 9px; height: 9px; border: 1px solid currentColor; background: var(--bg); transform: rotate(45deg); }
 .track-tick:hover, .track-tick.active { color: var(--ink); }

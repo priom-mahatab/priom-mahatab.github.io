@@ -16,7 +16,7 @@ const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a), 0, 1); return t
 const pad2 = (n) => String(n).padStart(2, "0");
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const COLORS = { bg: "#07090b", ink: "#e9ece8", mute: "#8b938e", accent: "#ff6a2b" };
+const COLORS = { bg: "#07090b", ink: "#e9ece8", mute: "#8b938e", accent: "#7aa2ff" };
 const FOV = 50;
 const TAN = Math.tan(THREE.MathUtils.degToRad(FOV / 2));
 const CARD_W = 9, CARD_H = 6;
@@ -168,8 +168,8 @@ function fallbackPortrait() {
 // portrait can pick a tile that matches each cell of the photo.
 const ATLAS = { grid: 16, tile: 64 };
 let atlasTexture = null, tilesByLum = [];
-// a cool, cohesive palette (whites, blues, violets) with the orange accent used sparingly
-const PALETTE = ["#e9ece8", "#cfd8ff", "#7aa2ff", "#4f6bff", "#9a7bff", "#c7b6ff", "#e9ece8", "#ff6a2b"];
+// a cool, cohesive palette (whites, blues, violets) with the blue accent used sparingly
+const PALETTE = ["#e9ece8", "#cfd8ff", "#7aa2ff", "#4f6bff", "#9a7bff", "#c7b6ff", "#e9ece8", "#7aa2ff"];
 const COOL_STOPS = [[11, 16, 38], [31, 58, 147], [79, 107, 255], [154, 123, 255], [232, 230, 255]];
 // dark navy → blue → violet → near-white; stands in for the rainbow maps used in depth/LiDAR tools
 function cool(t) {
@@ -258,7 +258,7 @@ const TILE_KINDS = {
   },
   code(g, x, y, s, r) { // syntax-highlighted source
     g.fillStyle = "#0d1117"; g.fillRect(x, y, s, s);
-    const cols = ["#79c0ff", "#d2a8ff", "#a5d6ff", "#c9d1d9", "#8b9cff", "#ff6a2b"];
+    const cols = ["#79c0ff", "#d2a8ff", "#a5d6ff", "#c9d1d9", "#8b9cff", "#7aa2ff"];
     for (let ly = y + 5; ly < y + s - 3; ly += 5) {
       let lx = x + 4 + Math.floor(r() * 3) * 5;
       while (lx < x + s - 6 && r() < 0.85) { const w = 4 + r() * 14; g.fillStyle = cols[Math.floor(r() * cols.length)]; g.fillRect(lx, ly, Math.min(w, x + s - 4 - lx), 2); lx += w + 3; }
@@ -752,7 +752,7 @@ function drawVisual(g, box, v, key) {
     const f = (t) => 0.9 * Math.exp(-Math.pow((t - 0.42) / 0.27, 2)) + 0.12; // wide, with a visible right tail
     const pts = []; for (let i = 0; i <= 120; i++) { const t = i / 120; pts.push([R.x + t * R.w, R.y + R.h - f(t) * R.h * 0.85]); }
     const cut = 1 - (v.value ?? 0.05);
-    g.fillStyle = "rgba(255,106,43,0.14)"; // the top-share zone, full height
+    g.fillStyle = "rgba(122,162,255,0.14)"; // the top-share zone, full height
     g.fillRect(R.x + cut * R.w, R.y, (1 - cut) * R.w, R.h);
     g.fillStyle = "rgba(122,162,255,0.16)";
     g.beginPath(); g.moveTo(R.x, R.y + R.h); pts.forEach(([x, y]) => g.lineTo(x, y)); g.lineTo(R.x + R.w, R.y + R.h); g.fill();
@@ -1255,8 +1255,8 @@ function tick() {
   if (frame % 4 === 0) {
     let si = -1;
     gates.forEach((g, i) => { if (s >= g.s - 40) si = i; });
-    ticks.forEach(({ b }, i) => b.classList.toggle("active", i === si || (i === ticks.length - 1 && o > 0.6)));
     const navActive = o > 0.6 ? gates.length : si;
+    ticks.forEach(({ b }, i) => b.classList.toggle("active", i === navActive)); // one at a time, or neighbouring labels overlap
     navButtons.forEach((b, i) => b.classList.toggle("active", i === navActive));
     const label = navActive < 0 ? "Menu" : navActive === gates.length ? "Contact" : gates[navActive].sec.label;
     if (navCurrent.textContent !== label) navCurrent.textContent = label;
