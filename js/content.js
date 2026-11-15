@@ -19,7 +19,7 @@ export const profile = {
   // A normal photo also works; edges are faded out automatically.
   portrait: "assets/me-cutout.png", // background-removed copy of assets/me.jpg
   about: [
-    "I am a Data Scientist converted to Robotics & Machine Learning due to access to hardware at our Robotics Lab in Valkyrie. Systems that can actually be perceived in a real environment instead of a screen excite me more which is why I switched towards this role.",
+    "I am a Data Scientist converted to Robotics & Machine Learning Engineer due to access to hardware at our Robotics Lab in Valkyrie. Systems that can actually be perceived in a real environment instead of a screen excite me more which is why I switched towards this role.",
     "I am currently working on different sorts of autonomous systems (land and air). I am happy to connect to anyone who is working in a similar domain or wants to discuss any of my projects.",
   ],
   links: [
